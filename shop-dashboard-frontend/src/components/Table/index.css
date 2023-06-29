@@ -1,0 +1,8 @@
+.table {
+  --bs-table-color: #000;
+}
+
+.table.dark-theme {
+  --bs-table-bg: transparent;
+  --bs-table-color: white;
+}

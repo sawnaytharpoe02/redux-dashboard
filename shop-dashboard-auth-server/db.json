@@ -1,0 +1,32 @@
+{
+  "users": [
+    {
+      "email": "asdf@gmail.com",
+      "password": "$2a$10$B/Lw9pqQKE5GnnodJF8kM.Mh0NPonGy3bZnJ0EG.Ka0yajLj.GUX2",
+      "username": "asdfasdf",
+      "role": "Member",
+      "id": 1
+    },
+    {
+      "email": "hgaymoo@gmail.com",
+      "password": "$2a$10$a20WBSfyrtvP5zRDkmlifuZix0DXCG00oCW1KL.1.5DkMs4eE5cvW",
+      "username": "hgay moo",
+      "role": "Member",
+      "id": 2
+    },
+    {
+      "email": "hgay@gmail.com",
+      "password": "$2a$10$0e9il5Wi1E/NE9E5QtrQPOEg40QhXKGrkVzKForVYYA54pdHut8JW",
+      "username": "hgay",
+      "role": "Member",
+      "id": 3
+    },
+    {
+      "email": "jama@gmail.com",
+      "password": "$2a$10$RFkIykFNSBLI.WG4LhfJA.mTRzWcqm3VQYN.gkx0UkaVPo4tmT4Iu",
+      "username": "jama",
+      "role": "Member",
+      "id": 4
+    }
+  ]
+}

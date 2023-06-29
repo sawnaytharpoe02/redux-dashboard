@@ -1,0 +1,18 @@
+.main-layout {
+  transition: .4s;
+}
+
+.main-layout.dark-theme {
+  background-color: rgb(18, 18, 32);
+  color: white;
+}
+
+.dashboard-nav {
+  position: fixed;
+  top: 0;
+}
+
+.dashboard-col {
+  height: 100vh;
+  overflow-y: scroll;
+}
