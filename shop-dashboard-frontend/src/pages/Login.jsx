@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Button,
   Card,
@@ -11,28 +10,41 @@ import {
   Label,
   Row,
 } from 'reactstrap';
-import { useForm, Controller } from 'react-hook-form';
-import Select from 'react-select';
+import { useForm } from 'react-hook-form';
+import { apiCall } from '../service/apiService';
+import { useDispatch } from 'react-redux';
+import { loginUser, setToast } from '../store/actions';
+import { toast } from 'react-toastify';
+
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const {
     register,
     handleSubmit,
-    control,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    const url = 'http://localhost:3000/users';
+    const user = {
+      email: data.email,
+      password: data.password,
+    };
+    const res = await apiCall('get', url);
+    const curUser = res.data.filter((u) => u.email === user.email);
+
+    if (curUser.length !== 0) {
+      dispatch(loginUser(curUser[0]));
+      dispatch(setToast('Login successful'));
+      navigate('/');
+    } else {
+      toast.error('Incorrect Credentials!');
+      navigate('/login');
+    }
   };
-
-  useEffect(() => {}, []);
-
-  const options = [
-    { value: 'Admin', label: 'Admin' },
-    { value: 'Member', label: 'Member' },
-  ];
 
   return (
     <Container className="min-vh-100 d-flex justify-content-center align-items-center">
@@ -48,8 +60,9 @@ export default function Login() {
             <CardBody className="p-5">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <FormGroup>
-                  <Label for="exampleEmail">Email</Label>
+                  <Label for="email">Email</Label>
                   <input
+                    id="email"
                     className="form-control"
                     placeholder="email"
                     type="email"
@@ -61,11 +74,10 @@ export default function Login() {
                 </FormGroup>
 
                 <FormGroup>
-                  <Label for="examplePassword">Password</Label>
+                  <Label for="password">Password</Label>
                   <input
+                    id="password"
                     className="form-control"
-                    // id="examplePassword"
-                    // name="password"
                     placeholder="password"
                     type={showPassword ? 'text' : 'password'}
                     {...register('password', { required: true })}

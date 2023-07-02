@@ -4,6 +4,7 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
+  Button,
 } from 'reactstrap';
 import './index.css';
 import Profile from '../../assets/imgs/profile.png';
@@ -11,7 +12,7 @@ import { BsSun, BsMoon } from 'react-icons/bs';
 import { ThemeContext } from '../../context/ThemeContext';
 import { getItem, setItem } from '../../utils/localstorage';
 import { useDispatch, useSelector } from 'react-redux';
-import { logoutUser } from '../../store/actions';
+import { logoutUser, setToast } from '../../store/actions';
 import { useNavigate } from 'react-router';
 
 export default function CustomNavBar() {
@@ -32,6 +33,7 @@ export default function CustomNavBar() {
 
   const hanldeLogout = () => {
     dispatch(logoutUser());
+    dispatch(setToast('Logout successful.'));
     navigate('/login');
   };
   const toggle = () => setDropdownOpen((prevState) => !prevState);

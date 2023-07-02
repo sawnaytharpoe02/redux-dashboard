@@ -4,9 +4,8 @@ import './index.css';
 import { useContext } from 'react';
 import { ThemeContext } from '../../context/ThemeContext';
 export default function CustomTable({ setOpen, title, header, tableBody }) {
-  const { theme, setTheme } = useContext(ThemeContext);
   return (
-    <div className="mt-5">
+    <div>
       <h3>{title}</h3>
       <Table
         className={`app-table align-items-center table-flush ${

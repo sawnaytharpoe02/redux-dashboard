@@ -6,11 +6,31 @@ import { useState } from 'react';
 import './adminLayout.css';
 import CustomNavBar from '../components/Navbar';
 import { getItem } from '../utils/localstorage';
+import { useDispatch, useSelector } from 'react-redux';
+import Login from '../pages/Login';
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
+import { hideToast } from '../store/actions';
 
 export default function AdminLayout() {
   const [theme, setTheme] = useState('light');
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
-  return (
+  const { showToast, toastMessage } = useSelector((state) => state.toast);
+  if (showToast) {
+    toast.success(toastMessage);
+    dispatch(hideToast());
+  }
+
+  // useEffect(() => {
+  //   if (showToast) {
+  //     toast.success(toastMessage);
+  //     dispatch(hideToast());
+  //   }
+  // }, [showToast]);
+
+  return user !== null ? (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       <Row
         className={`container-fluid main-layout d-flex justify-content-between  ${
@@ -25,5 +45,7 @@ export default function AdminLayout() {
         </Col>
       </Row>
     </ThemeContext.Provider>
+  ) : (
+    <Login />
   );
 }

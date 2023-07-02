@@ -1,16 +1,15 @@
-const data = [
-  { id: 1, name: 'electronics' },
-  { id: 2, name: 'jewelery' },
-  { id: 3, name: "men's clothing" },
-  { id: 4, name: "women's clothing" },
-];
+import { apiCall } from '../../service/apiService';
+import { setLoading } from './status';
 
 export const getCategory = () => {
   return async (dispatch) => {
+    dispatch(setLoading(true));
+    const res = await apiCall('categories', 'get');
     dispatch({
       type: 'SET_CATEGORY',
-      payload: data,
+      payload: res.data,
     });
+    dispatch(setLoading(false));
   };
 };
 

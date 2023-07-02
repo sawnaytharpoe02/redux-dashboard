@@ -3,12 +3,14 @@ import CustomTable from '../components/Table/Table';
 import { Button } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteCategory, getCategory } from '../store/actions';
+import Loader from '../components/Loader/Loader';
 
 const Category = () => {
   const [open, setOpen] = useState(false);
-
   const header = ['No.', 'Name', 'Actions'];
 
+  const { category } = useSelector((state) => state.categories);
+  const { loading } = useSelector((state) => state.status);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCategory());
@@ -18,16 +20,16 @@ const Category = () => {
     dispatch(deleteCategory(id));
   };
 
-  const { category } = useSelector((state) => state.categories);
-
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <CustomTable
       setOpen={setOpen}
       title={'Category'}
       header={header}
       tableBody={category?.map((row, index) => (
         <tr key={index}>
-          <td>{index + 1}</td>
+          <td>{row.id}</td>
           <td>{row.name}</td>
           <td>
             <div className="d-flex gap-3">
